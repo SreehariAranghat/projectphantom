@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="SupportPanda.Core"
+                   namespace="SupportPanda.Core"
+                   xmlns="urn:nhibernate-mapping-2.2">
+  <class name="User" table="Users" lazy="false" >
+    <id name="Id" column="UserId">
+      <generator class="identity"></generator>
+    </id>
+    <property    name="FirstName"        length="100" not-null="true"/>
+    <property    name="LastName"         length="100" not-null="true"/>
+    <property    name="UserName"         length="100" not-null="true" unique-key="uk_username"/>
+    <property    name="Email"            length="100" not-null="true" unique-key="uk_useremail"  />
+    <property    name="Password"         length="100" not-null="true" />
+    <property    name="Salt"             length="10" not-null="true" />
+    <property    name="UniqueId"         length="50" not-null="true" />
+    <property    name="Mobile"           length="20" />
+    <property    name="PhoneNumber" length="20" />
+    <property    name="EmailSignature" length="500" />
+    <property    name="PhotoPath"        length="100" />
+    <many-to-one name="Client"           column="ClientId"  class="Client"/>
+    <property    name="IsActive"         not-null="true" />
+    <property    name="IsEmailVerified"  not-null="true" />
+    <property    name="LastLoginTime"                    />
+    <set name="Roles" table="UserRoles" lazy="false" fetch="join">
+      <key column="UserId"/>
+      <many-to-many class="Role" column="RoleId"/>
+    </set>
+    <many-to-one name="CreatedUser"      column="CreatedUserId"   class="User" not-null="true" />
+    <many-to-one name="ModifiedUser"     column="ModifiedUserId"  class="User"/>
+    <many-to-one name="DeletedUser"      column="DeletedUserId"   class="User" unique-key="uk_username,uk_useremail"/>
+    <property    name="CreatedDate"      not-null="true" />
+    <property    name="ModifiedDate" />
+    <property    name="DeletedDate"   unique-key="uk_useremail,uk_useremail"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,88 @@
+﻿
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <h2><i class="fa fa-user-o"></i>&nbsp;&nbsp;New Agent</h2>
+    </div>
+</div>
+<form action="~/agents/new" method="post">
+    <div class="row">
+        <div class="col-lg-2 m-none">
+            <div class="ibox m-sm">
+                <div class="ibox-content text-center">
+                    <h2 class="text-left">Photo</h2>
+                    <img src="~/img/profile_small.jpg" width="128" height="128" />
+                    <div>
+                        <br />
+                        <button class="btn btn-default btn-rounded">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10 m-none">
+            <div class="ibox m-sm">
+                <div class="ibox-content">
+                    <div>
+                        <h3>Agent Details</h3>
+
+
+                        <table class="table">
+                            <tr>
+                                <td>Full Name *</td>
+                                <td>
+                                    <input type="text" name="FullName" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Email *
+                                </td>
+                                <td>
+                                    <input type="email" name="Email" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Title</td>
+                                <td>
+                                    <input type="text" name="Title" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Phone Number
+                                </td>
+                                <td>
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="padding-right:3px;"><input type="text" class="form-control" name="WorkPhone" placeholder="Work Phone Number" /></td>
+                                            <td><input type="text" class="form-control" name="Mobile" placeholder="Mobile" /></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Signature</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea name="Signature" class="form-control"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="ibox-footer" style="text-align:right;">
+                    <button type="submit" class="btn btn-primary btn-rounded">Save</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</form>

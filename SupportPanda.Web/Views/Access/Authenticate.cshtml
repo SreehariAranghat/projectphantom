@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HelpDesk | SupportPanda | Login</title>
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/css/animate.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg" style="background-color:dimgray">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div>
+                    <img src="~/favicon.png" width="128" height="128" />
+                </div>
+                <h3> Welcome to Support<strong>Panda</strong></h3>
+                <form class="m-t" role="form" action="~/access/authenticate" method="post">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger" style="padding:5px;padding-left:10px; padding-right:10px;">
+                            <strong>@ViewBag.Error</strong>
+                        </div>
+                    }
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                        <input type="email" placeholder="Email" name="username" required="" class="form-control">
+                    </div>
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <input type="password" placeholder="Password" name="password" required="" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                    <a href="~/access/passwordreset"><small>Forgot password?</small></a>
+                    <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                    <a class="btn btn-sm btn-white btn-block" href="~/access/register">Create an account</a>
+                </form>
+                <p class="m-t"> <small>Support<strong>Panda</strong> &copy; 2017</small> </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="~/js/jquery-3.1.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+
+</body>
+</html>

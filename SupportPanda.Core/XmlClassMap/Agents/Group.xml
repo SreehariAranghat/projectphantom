@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="SupportPanda.Ticket"
+                   namespace="SupportPanda.Ticket"
+                   xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Group" table="Groups" lazy="false" >
+    <id name="Id" column="GroupId">
+      <generator class="identity"></generator>
+    </id>
+    <property name="Name"                not-null="true" length="50" />
+    <property name="Description"         not-null="true" length="100"  />
+    <many-to-one name="Client"           column="ClientId"        class="SupportPanda.Core.Client"/>
+    <many-to-one name="CreatedUser"      column="CreatedUserId"   class="SupportPanda.Core.User" not-null="true" />
+    <many-to-one name="ModifiedUser"     column="ModifiedUserId"  class="SupportPanda.Core.User"/>
+    <many-to-one name="DeletedUser"      column="DeletedUserId"   class="SupportPanda.Core.User"/>
+    <property    name="CreatedDate"      not-null="true" />
+    <property    name="ModifiedDate" />
+    <property    name="DeletedDate"  />
+  </class>
+</hibernate-mapping>

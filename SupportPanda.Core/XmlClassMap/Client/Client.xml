@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="SupportPanda.Core"
+                   namespace="SupportPanda.Core"
+                   xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Client" table="Clients" lazy="false" >
+    <id name="Id" column="ClientId">
+      <generator class="identity"></generator>
+    </id>
+    <property    name="Name" length="100" not-null="true" />
+    <property    name="UniqueId"          length="50" not-null="true" />
+    <many-to-one name="CreatedUser"       column="CreatedUserId"   class="User" not-null="true" />
+    <many-to-one name="ModifiedUser"      column="ModifiedUserId"  class="User"/>
+    <many-to-one name="DeletedUser"       column="DeletedUserId"   class="User"/>
+    <property    name="CreatedDate"       not-null="true" />
+    <property    name="ModifiedDate" />
+    <property    name="DeletedDate" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,119 @@
+﻿@model List<SupportPanda.Core.Role>
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2><i class="fa fa-user-secret"></i>&nbsp;&nbsp;Roles</h2>
+        
+    </div>
+    <div class="col-lg-4">
+    <div class="pull-right m-t-md m-r-sm">
+            <a href="~/settings/roles/new" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Role</a>
+    </div>
+    </div>
+</div>
+<div class="row">
+    <div class="ibox m-sm">
+        <div class="ibox-title"><small><i>Please note you will not be able to edit or delete predefined system roles</i></small></div>
+         <div class="ibox-content">
+           
+                 @foreach (SupportPanda.Core.Role r in Model.OrderByDescending(d => d.IsSystemRole))
+                 {
+                    <div class="row border-bottom" roledata="@r.Id">
+                        <div class="col-lg-10 p-xs">
+                            <h3 class="no-margins">@r.Name</h3>
+                            <small>@r.Description</small>
+                        </div>
+                        <div class="col-lg-2 ">
+                            @if (!r.IsSystemRole)
+                            {
+                                <div class="m-t-sm pull-right" style="font-size:14pt;">
+                                    <a href="#" title="Delete Role" roleid="@r.Id" rolename="@r.Name" class="deleterole"><i class="fa  fa-trash-o"></i></a>
+                                    |
+                                    <a href="~/settings/roles/edit/@r.Id" data-toggle="tooltip" data-placement="bottom" title="Edit this role"><i class="fa  fa-pencil"></i></a>
+                                    @*|
+                                    <a href="#" title="Assign users to this Role" class="assignusers"><i class="fa  fa-user-o"></i></a>*@
+                                </div>
+                            }
+                            @*else
+                            {
+                                <div class="m-t-sm pull-right" style="font-size:14pt;">
+                                     <a href="#" title="Assign users to this Role" class="assignusers"><i class="fa  fa-user-o" ></i></a>
+                               </div>
+                            }*@
+                            </div>
+
+                    </div>
+                 }
+      
+         </div>
+    </div>
+</div>
+@if(Request.QueryString["s"] != null)
+{
+    <script type="text/javascript">
+        toastr.success('@(Request.QueryString["s"] + " role has been saved successfully")');
+    </script>
+}
+
+<div class="modal inmodal fade" id="modalAssignUserRoles" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h2 class="modal-title m-l-sm" style="text-align:left;"><i class="fa fa-user-secret"></i>&nbsp;&nbsp;Roles</h2>
+            </div>
+            <div class="modal-body" id="modelUserList">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $("#modalAssignUserRoles").modal('hide');
+
+    $(".assignusers").click(function () {
+        $("#modelUserList").load("/agents/fetchall");
+        $("#modalAssignUserRoles").modal('show');
+    });
+
+    $(".deleterole").click(function () {
+        var rolename = $(this).attr("rolename");
+        var roleid   = $(this).attr("roleid");
+
+        $.confirm({
+            title: 'Are you sure ?',
+            content: "You are about to delete the role '" + rolename + "'.\nThis action cannot be undone. Do you want to continue ?",
+            buttons: {
+                confirm: function () {
+                 
+                    $.post("/roles/delete/" + roleid, function (data) {
+                        if (data.Error != null) {
+                            toastr.error(data.Error);
+                        }
+                        else {
+                            toastr.success("Role '" + rolename + "' has been deleted successfully");
+                            $("[roledata=" + roleid + "]").hide('medium', function () {
+                                $(this).remove();
+                            });
+                        }
+                    });
+                },
+                cancel : function () { }
+            }
+        });
+    });
+</script>
+
+
+

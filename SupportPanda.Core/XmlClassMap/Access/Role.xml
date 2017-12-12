@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="SupportPanda.Core"
+                   namespace="SupportPanda.Core"
+                   xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Role" table="Roles" lazy="false" >
+    <id name="Id" column="RoleId">
+      <generator class="identity"></generator>
+    </id>
+    <property name="Name"          not-null="true" length="50" />
+    <property name="Description"   not-null="true" length="100"  />
+    <property name="IsSystemRole"  not-null="true" />
+    <many-to-one name="Client"           column="ClientId"        class="Client"/>
+    <set name="Permissions" table="RolePermissions" lazy="false" fetch="join">
+      <key column="RoleId"/>
+      <many-to-many class="Permission" column="PermissionId"/>
+    </set>
+    <many-to-one name="CreatedUser"      column="CreatedUserId"   class="User" not-null="true" />
+    <many-to-one name="ModifiedUser"     column="ModifiedUserId"  class="User"/>
+    <many-to-one name="DeletedUser"      column="DeletedUserId"   class="User"/>
+    <property    name="CreatedDate"      not-null="true" />
+    <property    name="ModifiedDate" />
+    <property    name="DeletedDate"  />
+  </class>
+</hibernate-mapping>

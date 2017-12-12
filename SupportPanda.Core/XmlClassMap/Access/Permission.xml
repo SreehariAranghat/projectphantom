@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="SupportPanda.Core"
+                   assembly ="SupportPanda.Core">
+  <class name="Permission" table="Permissions" lazy="false">
+    <cache usage="read-write"/>
+    <id name="Id" column="PermissionId">
+      <generator class="identity"></generator>
+    </id>
+    <property name="Name"   not-null="true" length="50" unique-key="uk_permissonname" />
+    <property name="GroupName"  not-null="true" length="100" />
+    <property name="Title"  not-null="true" length="100" unique-key="uk_permissontitle" />
+    <property name="Description"   not-null="true" length="500"  />
+  </class>
+</hibernate-mapping>

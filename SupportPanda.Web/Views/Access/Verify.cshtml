@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HelpDesk | SupportPanda | Login</title>
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/css/animate.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg" style="background-color:dimgray">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div class="row">
+            <div class="ibox">
+                @if (ViewBag.Error != null)
+                {
+                    <div class="ibox-title">
+                        <span class="text-danger">ERROR</span>
+                    </div>
+                    <div class="ibox-content">
+                        <span class="text-danger">
+                            @ViewBag.Error
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="ibox-title">
+                        Verified Successfully
+                    </div>
+                    <div class="ibox-content">
+                        <h2>Email address verified successfully</h2>
+                        <small>You will be redirected to the application in a moment.</small>
+                    </div>
+                }
+            </div>
+        </div> 
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="~/js/jquery-3.1.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+
+    @if (ViewBag.Error == null)
+    {
+        <script type="text/javascript">
+            setTimeout(function () {
+                window.location.href = "/home";
+            }, 10000);
+        </script>
+    }
+</body>
+
+</html>

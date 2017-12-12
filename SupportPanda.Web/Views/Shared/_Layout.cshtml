@@ -1,0 +1,165 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HelpDesk | SupportPanda</title>
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="~/css/animate.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="~/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+   
+
+
+    <script src="~/js/jquery-3.1.1.min.js"></script>
+    <script src="~/js/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+  
+  
+
+    <script src="~/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <script src="~/js/jquery.slidereveal.min.js"></script>
+    <script src="~/js/jquery.mapkey.js"></script>
+    <script src="~/js/plugins/toastr/toastr.min.js"></script>
+    <script src="~/js/jquery-confirm.min.js"></script>
+  
+  
+</head>
+<body class="mini-navbar">
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="logo-element">
+                            <a href="@Url.Action("Index","Home")"><img src="~/favicon.png" width="48" height="48" /></a>
+                        </div>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home")">
+                        <a href="@Url.Action("Index","Home")"><i class="fa fa-tv"></i> <span class="nav-label">Dashboard</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Customers")">
+                        <a href="@Url.Action("Index","Customers")"><i class="fa fa-users"></i> <span class="nav-label">Customers</span></a>
+                    </li>
+                    @if (User.IsInRole(SupportPanda.Core.Permissions.PER_MANAGE_SETTINGS))
+                    {
+                        <li class="@Html.IsSelected(controller: "Settings")">
+                            <a href="@Url.Action("Index", "Settings")"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a> 
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        @*<li>
+                                <a href="#" style="padding:10px;">
+                                    <img class="img-circle" width="32" height="32" style="margin-right:10px;" src="~/img/profile_small.jpg" /> <label>Sreehari</label>
+                                </a>
+                            </li>*@
+                        <li>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-rounded" type="button" showremoteui><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;New Ticket</button>
+                                <button type="button" class="btn btn-default btn-rounded dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" showremoteui><i class="fa fa-user-circle"></i>&nbsp;&nbsp;New Contact</a></li>
+                                    <li><a href="#" showremoteui><i class="fa fa-building"></i>&nbsp;&nbsp;New Company</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        @*<li class="border-left m-l-sm text-center">
+                            <a href="#">
+                                <i class="fa fa-bell-o"></i>
+                            </a>
+                        </li>*@
+                        <li class="border-left m-l-sm text-center">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:10px;">
+                                <img class="img-circle" width="32" height="32" style="margin-right:10px;" src="@ViewBag.Image" />@ViewBag.DisplayName
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="~/mysettings">
+                                        <div>
+                                            <i class="fa fa-cogs"></i>&nbsp;&nbsp;&nbsp;My Settings
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="~/access/logout">
+                                        <div>
+                                            <i class="fa fa-sign-out"></i>&nbsp;&nbsp;&nbsp; Logout
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="wrapper full-height" style="padding:0 15px;">
+                <div class="row">
+                    @RenderBody()
+                    <div id="slider" class="ibox" style="background-color:white;"></div>
+                </div>
+               
+            </div>
+            <div class="footer">
+                <div class="pull-right">
+                    @*10GB of <strong>250GB</strong> Free.*@
+                </div>
+                <div>
+                    <strong>Copyright</strong> Support<strong>Panda</strong> &copy; 2014-2017
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+
+    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+
+    <!-- Custom and plugin javascript -->
+    <script src="~/js/inspinia.js"></script>
+  
+    @*<script src="~/js/plugins/pace/pace.min.js"></script>*@
+    <script src="~/js/supportpanda-ui.js"></script>
+
+    <script src="~/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+        $(".slimScrollDiv").slimScroll();
+    </script>
+   
+</body>
+</html>
